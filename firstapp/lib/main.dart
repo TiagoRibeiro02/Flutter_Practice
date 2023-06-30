@@ -17,7 +17,49 @@ class Home extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.red[600],
       ),
-      body: Center(
+      body:
+
+
+
+
+
+      /*Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text('Hello world'),
+          TextButton(
+              onPressed: () {},
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.amber)
+              ),
+              child: Text('click me')),
+          Container(
+            color: Colors.cyan,
+            padding: EdgeInsets.all(30.0),
+            child: Text('inside container'),
+          )
+        ],
+      ),*/
+
+
+
+      /*Padding(
+        padding: EdgeInsets.all(90.0),
+        child: Text('hello'),
+      ),*/
+
+
+      /*Container(
+        //padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0), //padding increases inside space
+        padding: EdgeInsets.fromLTRB(10.0, 20.0, 30.0, 40.0),
+        margin: EdgeInsets.all(30.0), //margin is for around the container
+        color: Colors.grey,
+        child: Text('hello'), //with child container restricts for that child
+      ),*/
+
+
+      /*Center(
         //text
         /*child: Text(
           'Hello world',
@@ -54,14 +96,14 @@ class Home extends StatelessWidget {
             label: Text('mail me'),
         ),*/
         //icon button
-        child: IconButton(
+        /*child: IconButton(
           onPressed: () {},
           icon: Icon(Icons.abc),
           color: Colors.red,
-        ),
+          iconSize: 50.0,
+        ),*/
 
-
-      ),
+      ),*/
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         child: Text('click'),
