@@ -21,7 +21,7 @@ class Home extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          Row(
+          const Row(
             children: <Widget>[
               Text('hello, '),
               Text('World'),
