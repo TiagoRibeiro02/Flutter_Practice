@@ -1,1 +1,6 @@
-{}
+{
+  "spellcheckLanguages": [
+    "en-GB"
+  ],
+  "alwaysUpdateLinks": true
+}
