@@ -10,6 +10,8 @@ class WorldTime{
   late String flag; //url time flag
   late String url; //location url for api endpoint
 
+  late bool isDaytime;
+
 
   WorldTime({required this.location, required this.flag, required this.url});
 
@@ -33,7 +35,10 @@ class WorldTime{
       //print(now);
 
       //set time property
+      isDaytime = now.hour > 6 && now.hour < 20 ? true : false;
       time = DateFormat.jm().format(now);
+
+
     } catch (e){
       print('error: $e');
       time = 'could not get time data';
