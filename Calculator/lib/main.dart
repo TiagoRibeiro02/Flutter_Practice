@@ -33,11 +33,13 @@ class _buttonPressedState extends State<buttonPressed> {
   String _output = '0';
   String view = '0';
   String operand = '';
+  String newop = '';
   double num1 = 0;
   double num2 = 0;
   int count = 0;
   bool vis = false;
   int buttonPressedTwice = 0;
+  double aux = 0;
 
   void buttonpressed(String buttonText) async {
 
@@ -53,11 +55,46 @@ class _buttonPressedState extends State<buttonPressed> {
       buttonPressedTwice = 0;
     }
     else if(buttonText == '+' || buttonText == '-' || buttonText == '/' || buttonText == 'x' ){
+      buttonPressedTwice += 1;
+      if(buttonPressedTwice == 1) {
         num1 = double.parse(output);
         operand = buttonText;
         _output = '0';
         view = view + buttonText;
         vis = false;
+      }else{
+        num2 = double.parse(output);
+        if(operand == '+'){
+          num1 = (num1 + num2);
+          view = view + buttonText;
+          _output = '0';
+          newop = buttonText;
+        }
+        if(operand == '-'){
+          num1 = (num1 - num2);
+          view = view + buttonText;
+          _output = '0';
+          newop = buttonText;
+        }
+        if(operand == '/'){
+          if(num2 == 0.0){
+            view = 'Error: Division by 0';
+          }else {
+            num1 = (num1 / num2);
+            view = view + buttonText;
+            _output = '0';
+            newop = buttonText;
+          }
+        }
+        if(operand == 'x'){
+          num1 = (num1 * num2);
+          view = view + buttonText;
+          _output = '0';
+          newop = buttonText;
+        }
+        operand = newop;
+      }
+
     }
     else if(buttonText == '='){
       num2 = double.parse(output);
@@ -94,14 +131,23 @@ class _buttonPressedState extends State<buttonPressed> {
       operand = '';
 
     }
+
     else if(buttonText == '%'){
-      num1 = double.parse(output);
-
-      _output = (num1 / 100).toString();
-      vis = true;
-
-      num1 = 0;
+      if(buttonPressedTwice == 0){
+        num1 = double.parse(output);
+        _output = (num1 / 100).toString();
+        aux = num1 / 100;
+        view = _output;
+        num1 = aux;
+      }else{
+        num2 = double.parse(output);
+        _output = (num2 / 100).toString();
+        aux = num2 / 100;
+        view = view.substring(0, (view.length - (num2.toString().length-2)).toInt()) + _output;
+        num2 = aux;
+      }
     }
+
     else if(buttonText == '.'){
       if(_output.contains('.')){
         print('already contains .');
@@ -138,8 +184,8 @@ class _buttonPressedState extends State<buttonPressed> {
 
     }
 
-    //print(_output);
-    //print(num1);
+    print('_output: $_output');
+    print('num1: $num1');
 
     setState(() {
       output = double.parse(_output).toStringAsFixed(2);
