@@ -29,6 +29,7 @@ class _buttonPressedState extends State<buttonPressed> {
 
   String output = '0';
   String _output = '0';
+  String lastSelected = '';
   String result = '';
   String operand = '';
   double num1 = 0;
@@ -39,20 +40,72 @@ class _buttonPressedState extends State<buttonPressed> {
     if(buttonText == 'C'){
       output = '0';
       _output = '0';
-      result = '';
       operand = '';
+      num1 = 0;
+      num2 = 0;
+    }
+    else if(buttonText == '+' || buttonText == '-' || buttonText == '/' || buttonText == 'x' ){
+      num1 = double.parse(output);
+      operand = buttonText;
+      _output = '0';
+    }
+    else if(buttonText == '='){
+      num2 = double.parse(output);
+      if(operand == '+'){
+        _output = (num1 + num2).toString();
+      }
+      if(operand == '-'){
+        _output = (num1 - num2).toString();
+      }
+      if(operand == '/'){
+        _output = (num1 / num2).toString();
+      }
+      if(operand == 'x'){
+        _output = (num1 * num2).toString();
+      }
+
+      num1 = 0;
+      num2 = 0;
+      operand = '';
+
+    }
+    else if(buttonText == '%'){
+      num1 = double.parse(output);
+
+      _output = (num1 / 100).toString();
+
+      num1 = 0;
+    }
+    else if(buttonText == '.'){
+      if(_output.contains('.')){
+        print('already contains .');
+      }
+      else{
+        _output = _output + buttonText;
+      }
+    }
+    else if(buttonText == 'del'){
+      if(_output == '0'){
+
+      }else {
+        _output = _output.substring(0, _output.length - 1);
+      }
+    }
+    else if(buttonText == '#'){
+      print('do nothing');
     }
     else{
       _output = _output + buttonText;
     }
 
     print(_output);
+    print(num1);
 
-    // setState(() {
-    //
-    //   output = double.parse(_output).toStringAsFixed(2);
-    //
-    // });
+    setState(() {
+
+      output = double.parse(_output).toStringAsFixed(2);
+
+    });
 
 
   }
@@ -112,7 +165,7 @@ class _buttonPressedState extends State<buttonPressed> {
                             //backgroundColor: MaterialStateProperty.all(Colors.amber),
                             padding: MaterialStateProperty.all(EdgeInsets.all(24.0)),
                           ),
-                          onPressed: () {},
+                          onPressed: () {buttonpressed('del');},
                           icon: Icon(
                             Icons.backspace,
                             size: 28.0,
