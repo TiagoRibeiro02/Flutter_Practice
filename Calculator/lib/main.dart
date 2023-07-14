@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -54,7 +56,7 @@ class _buttonPressedState extends State<buttonPressed> {
         num1 = double.parse(output);
         operand = buttonText;
         _output = '0';
-        view = '$num1' + buttonText;
+        view = view + buttonText;
         vis = false;
     }
     else if(buttonText == '='){
@@ -119,8 +121,12 @@ class _buttonPressedState extends State<buttonPressed> {
         view = view.substring(0, view.length -1);
       }
     }
-    else if(buttonText == '#'){
-      //print('do nothing');
+    else if(buttonText == '√'){
+      num1 = double.parse(output);
+      _output = (sqrt(num1)).toString();
+      vis = true;
+
+      num1 = 0;
     }
     else{
       _output = _output + buttonText;
@@ -252,7 +258,7 @@ class _buttonPressedState extends State<buttonPressed> {
                   ),
                   Row(
                     children: <Widget>[
-                      buildButton('#'),
+                      buildButton('√'),
                       buildButton('0'),
                       buildButton('.'),
                       buildButton('='),
