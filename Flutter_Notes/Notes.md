@@ -13,7 +13,7 @@ Many Material Design widgets need to be inside of a [`MaterialApp`](https://api
 ## Applications to Make
 
 - Easy
-- [ ] Calculator
+- [x] Calculator
 - [ ] To-Do
 - [ ] Tic Tac Toe Game
 - [ ] BooblePop (Rebenta a bolha)
