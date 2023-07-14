@@ -29,39 +29,54 @@ class _buttonPressedState extends State<buttonPressed> {
 
   String output = '0';
   String _output = '0';
-  String lastSelected = '';
-  String result = '';
+  String view = '0';
   String operand = '';
   double num1 = 0;
   double num2 = 0;
+  int count = 0;
+  bool vis = false;
 
-  void buttonpressed(String buttonText){
+  void buttonpressed(String buttonText) async {
 
     if(buttonText == 'C'){
       output = '0';
       _output = '0';
+      view = '0';
       operand = '';
       num1 = 0;
       num2 = 0;
+      vis = false;
+      count = 0;
     }
     else if(buttonText == '+' || buttonText == '-' || buttonText == '/' || buttonText == 'x' ){
       num1 = double.parse(output);
       operand = buttonText;
       _output = '0';
+      view = '$num1' + buttonText;
     }
     else if(buttonText == '='){
       num2 = double.parse(output);
+      view = view + '=';
       if(operand == '+'){
         _output = (num1 + num2).toString();
+        vis = true;
       }
       if(operand == '-'){
         _output = (num1 - num2).toString();
+        vis = true;
       }
       if(operand == '/'){
         _output = (num1 / num2).toString();
+        vis = true;
       }
       if(operand == 'x'){
         _output = (num1 * num2).toString();
+        vis = true;
+      }
+      if(operand == ''){
+        num1 = double.parse(output);
+        _output = num1.toString();
+        vis = true;
       }
 
       num1 = 0;
@@ -73,6 +88,7 @@ class _buttonPressedState extends State<buttonPressed> {
       num1 = double.parse(output);
 
       _output = (num1 / 100).toString();
+      vis = true;
 
       num1 = 0;
     }
@@ -82,13 +98,16 @@ class _buttonPressedState extends State<buttonPressed> {
       }
       else{
         _output = _output + buttonText;
+        view = view + buttonText;
       }
     }
     else if(buttonText == 'del'){
-      if(_output == '0'){
-
+      if(_output == '0' || view.length == 1){
+        view = '0';
+        _output = '0';
       }else {
         _output = _output.substring(0, _output.length - 1);
+        view = view.substring(0, view.length -1);
       }
     }
     else if(buttonText == '#'){
@@ -96,16 +115,22 @@ class _buttonPressedState extends State<buttonPressed> {
     }
     else{
       _output = _output + buttonText;
+      view = view + buttonText;
+      if(count == 0){
+        view = _output.substring(1, view.length);
+        count += 1;
+      }
+
     }
 
     print(_output);
-    print(num1);
+    //print(num1);
 
     setState(() {
-
       output = double.parse(_output).toStringAsFixed(2);
-
+      print(output);
     });
+
 
 
   }
@@ -144,11 +169,25 @@ class _buttonPressedState extends State<buttonPressed> {
                       vertical: 24.0,
                       horizontal: 12.0
                   ),
-                  child: Text(output, style: TextStyle(
+                  child: Text(view, style: TextStyle(
                     fontSize: 48.0,
                     fontWeight: FontWeight.bold,
 
                   ))),
+              Visibility(
+                visible: vis,
+                child: Container(
+                    alignment: Alignment.centerRight,
+                    padding: EdgeInsets.symmetric(
+                        vertical: 24.0,
+                        horizontal: 12.0
+                    ),
+                    child: Text(output, style: TextStyle(
+                      fontSize: 48.0,
+                      fontWeight: FontWeight.bold,
+
+                    ))),
+              ),
               Expanded(
                 child: Divider(),
               ),
