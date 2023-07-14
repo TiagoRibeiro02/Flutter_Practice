@@ -35,6 +35,7 @@ class _buttonPressedState extends State<buttonPressed> {
   double num2 = 0;
   int count = 0;
   bool vis = false;
+  int buttonPressedTwice = 0;
 
   void buttonpressed(String buttonText) async {
 
@@ -47,15 +48,18 @@ class _buttonPressedState extends State<buttonPressed> {
       num2 = 0;
       vis = false;
       count = 0;
+      buttonPressedTwice = 0;
     }
     else if(buttonText == '+' || buttonText == '-' || buttonText == '/' || buttonText == 'x' ){
-      num1 = double.parse(output);
-      operand = buttonText;
-      _output = '0';
-      view = '$num1' + buttonText;
+        num1 = double.parse(output);
+        operand = buttonText;
+        _output = '0';
+        view = '$num1' + buttonText;
+        vis = false;
     }
     else if(buttonText == '='){
       num2 = double.parse(output);
+      //print(num2);
       view = view + '=';
       if(operand == '+'){
         _output = (num1 + num2).toString();
@@ -66,8 +70,12 @@ class _buttonPressedState extends State<buttonPressed> {
         vis = true;
       }
       if(operand == '/'){
-        _output = (num1 / num2).toString();
-        vis = true;
+        if(num2 == 0.0){
+          view = 'Error: Division by 0';
+        }else {
+          _output = (num1 / num2).toString();
+          vis = true;
+        }
       }
       if(operand == 'x'){
         _output = (num1 * num2).toString();
@@ -105,13 +113,14 @@ class _buttonPressedState extends State<buttonPressed> {
       if(_output == '0' || view.length == 1){
         view = '0';
         _output = '0';
-      }else {
+      }else if(view.contains('=')){}
+      else {
         _output = _output.substring(0, _output.length - 1);
         view = view.substring(0, view.length -1);
       }
     }
     else if(buttonText == '#'){
-      print('do nothing');
+      //print('do nothing');
     }
     else{
       _output = _output + buttonText;
@@ -123,16 +132,13 @@ class _buttonPressedState extends State<buttonPressed> {
 
     }
 
-    print(_output);
+    //print(_output);
     //print(num1);
 
     setState(() {
       output = double.parse(_output).toStringAsFixed(2);
-      print(output);
+      //print(output);
     });
-
-
-
   }
 
   Widget buildButton(String text){
