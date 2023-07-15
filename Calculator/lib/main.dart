@@ -59,6 +59,8 @@ class _buttonPressedState extends State<buttonPressed> {
       buttonPressedTwice = 0;
       aux = 0;
       auxop = '';
+      auxdel1 = '0';
+      auxdel2 = '';
     }
     else if(buttonText == '+' || buttonText == '-' || buttonText == '/' || buttonText == 'x' ){
       buttonPressedTwice += 1;
@@ -231,7 +233,7 @@ class _buttonPressedState extends State<buttonPressed> {
     else if(buttonText == 'del'){
       if(view.contains('=')){}
       else {
-        if(auxdel2 == '' || auxdel2.length < 2){
+        if(auxdel2 == '' || auxdel2 == '0'){
           print('tou aqui');
           num2 = 0;
           auxdel2 = '0';
