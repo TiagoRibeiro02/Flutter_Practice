@@ -41,7 +41,9 @@ class _buttonPressedState extends State<buttonPressed> {
   bool vis = false;
   int buttonPressedTwice = 0;
   double aux = 0;
-  String auxdel = '';
+  String auxdel1 = '0';
+  String auxdel2 = '';
+  int coundel = 0;
 
   void buttonpressed(String buttonText) async {
 
@@ -62,13 +64,15 @@ class _buttonPressedState extends State<buttonPressed> {
       buttonPressedTwice += 1;
       if(buttonPressedTwice == 1) {
         num1 = double.parse(output);
+        auxdel1  = '0' + num1.toString();
+        //auxdel1 = auxdel1.substring(0, auxdel1.length - 1);
         operand = buttonText;
         _output = '0';
         view = view + buttonText;
         vis = false;
       }else{
         num2 = double.parse(output);
-        auxdel = '0' + num2.toString();
+        auxdel2 = '0' + num2.toString();
         if(operand == '+'){
           if(buttonText == 'x' || buttonText == '/'){
             aux = num1;
@@ -145,7 +149,7 @@ class _buttonPressedState extends State<buttonPressed> {
     }
     else if(buttonText == '='){
       num2 = double.parse(output);
-      auxdel = '0' + num2.toString();
+      auxdel2 = '0' + num2.toString();
       //print(num2);
       view = view + '=';
       if(operand == '+'){
@@ -186,6 +190,8 @@ class _buttonPressedState extends State<buttonPressed> {
       }
       if(operand == ''){
         num1 = double.parse(output);
+        auxdel1 = '0' + num1.toString();
+        //auxdel1 = auxdel1.substring(0, auxdel1.length - 1);
         _output = num1.toString();
         vis = true;
       }
@@ -201,12 +207,15 @@ class _buttonPressedState extends State<buttonPressed> {
         num1 = double.parse(output);
         _output = (num1 / 100).toString();
         view = _output;
+        num1 = num1/100;
+        auxdel1 = '0' + num1.toString();
+        //auxdel1 = auxdel1.substring(0, auxdel1.length - 1);
       }else{
         num2 = double.parse(output);
         _output = (num2 / 100).toString();
         view = view.substring(0, (view.length - (num2.toString().length-2)).toInt()) + _output;
         num2 = num2/100;
-        auxdel = '0' + num2.toString();
+        auxdel2 = '0' + num2.toString();
       }
     }
 
@@ -220,28 +229,40 @@ class _buttonPressedState extends State<buttonPressed> {
       }
     }
     else if(buttonText == 'del'){
-      if(_output == '0'  || _output == ''){
-        view = view.substring(0, view.length -1);
-        num2=0;
-        if(view == ''){
-          num1 = 0;
-          view = '0';
-        }
-        _output = '0';
-      }else if(view.contains('=')){}
+      if(view.contains('=')){}
       else {
-        if(auxdel == '' || auxdel == '0'){
+        if(auxdel2 == '' || auxdel2.length < 2){
+          print('tou aqui');
           num2 = 0;
-          auxdel = '0';
+          auxdel2 = '0';
           _output = '0';
+          // if(coundel == 0) {
+          //   view = view.substring(0, view.length - 1);
+          // }
+          // coundel +=1;
+          if(view.length <= auxdel1.length){
+            if(auxdel1.length == 2 || auxdel1 == '') {
+              auxdel1 = '0';
+              _output = '0';
+              num1 = 0;
+              view = '0';
+            }
+            else{
+              auxdel1 = auxdel1.substring(0, auxdel1.length - 1);
+              print('auxdel1: $auxdel1');
+              num1 = double.parse(auxdel1);
+              print('n1: $num1');
+              view = view.substring(0, view.length - 1);
+            }
+          }
         }else {
-          auxdel = auxdel.substring(0, auxdel.length - 1);
-          print('auxdel: $auxdel');
-          num2 = num2 = double.parse(auxdel);
+          auxdel2 = auxdel2.substring(0, auxdel2.length - 1);
+          print('auxdel: $auxdel2');
+          num2  = double.parse(auxdel2);
           print('n2: $num2');
+          _output = _output.substring(0, _output.length - 1);
+          view = view.substring(0, view.length - 1);
         }
-        _output = _output.substring(0, _output.length - 1);
-        view = view.substring(0, view.length - 1);
       }
     }
     else if(buttonText == '√'){
@@ -249,13 +270,16 @@ class _buttonPressedState extends State<buttonPressed> {
         num1 = double.parse(output);
         _output = '0'+((sqrt(num1)).toString());
         view = view.substring(0, (view.length - (num1.toString().length-2)).toInt()) + _output;
+        num1 = sqrt(num1);
+        auxdel1 = '0' + num1.toString();
+        //auxdel1 = auxdel1.substring(0, auxdel1.length - 1);
         //vis = true;
       }else{
         num2 = double.parse(output);
         _output = '0'+(sqrt(num2)).toString();
         view = view = view.substring(0, (view.length - (num2.toString().length-2)).toInt()) + _output.substring(1,_output.length);
         num2 = sqrt(num2);
-        auxdel = '0' + num2.toString();
+        auxdel2 = '0' + num2.toString();
       }
     }
     else{
