@@ -74,7 +74,7 @@ class _buttonPressedState extends State<buttonPressed> {
         vis = false;
       }else{
         num2 = double.parse(output);
-        auxdel2 = '0' + num2.toString();
+        auxdel2 = num2.toString();
         if(operand == '+'){
           if(buttonText == 'x' || buttonText == '/'){
             aux = num1;
@@ -151,7 +151,6 @@ class _buttonPressedState extends State<buttonPressed> {
     }
     else if(buttonText == '='){
       num2 = double.parse(output);
-      auxdel2 = '0' + num2.toString();
       //print(num2);
       view = view + '=';
       if(operand == '+'){
@@ -217,7 +216,7 @@ class _buttonPressedState extends State<buttonPressed> {
         _output = (num2 / 100).toString();
         view = view.substring(0, (view.length - (num2.toString().length-2)).toInt()) + _output;
         num2 = num2/100;
-        auxdel2 = '0' + num2.toString();
+        auxdel2 = num2.toString();
       }
     }
 
@@ -233,15 +232,11 @@ class _buttonPressedState extends State<buttonPressed> {
     else if(buttonText == 'del'){
       if(view.contains('=')){}
       else {
-        if(auxdel2 == '' || auxdel2 == '0'){
+        if(auxdel2 == '' || auxdel2.length < 2){
           print('tou aqui');
           num2 = 0;
           auxdel2 = '0';
           _output = '0';
-          // if(coundel == 0) {
-          //   view = view.substring(0, view.length - 1);
-          // }
-          // coundel +=1;
           if(view.length <= auxdel1.length){
             if(auxdel1.length == 2 || auxdel1 == '') {
               auxdel1 = '0';
@@ -281,7 +276,7 @@ class _buttonPressedState extends State<buttonPressed> {
         _output = '0'+(sqrt(num2)).toString();
         view = view = view.substring(0, (view.length - (num2.toString().length-2)).toInt()) + _output.substring(1,_output.length);
         num2 = sqrt(num2);
-        auxdel2 = '0' + num2.toString();
+        auxdel2 = num2.toString();
       }
     }
     else{
