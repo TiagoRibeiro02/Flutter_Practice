@@ -34,6 +34,7 @@ class _buttonPressedState extends State<buttonPressed> {
   String view = '0';
   String operand = '';
   String newop = '';
+  String auxop = '';
   double num1 = 0;
   double num2 = 0;
   int count = 0;
@@ -53,6 +54,8 @@ class _buttonPressedState extends State<buttonPressed> {
       vis = false;
       count = 0;
       buttonPressedTwice = 0;
+      aux = 0;
+      auxop = '';
     }
     else if(buttonText == '+' || buttonText == '-' || buttonText == '/' || buttonText == 'x' ){
       buttonPressedTwice += 1;
@@ -65,16 +68,34 @@ class _buttonPressedState extends State<buttonPressed> {
       }else{
         num2 = double.parse(output);
         if(operand == '+'){
-          num1 = (num1 + num2);
-          view = view + buttonText;
-          _output = '0';
-          newop = buttonText;
+          if(buttonText == 'x' || buttonText == '/'){
+            aux = num1;
+            auxop = '+';
+            num1 = num2;
+            view = view + buttonText;
+            _output = '0';
+            newop = buttonText;
+          }else {
+            num1 = (num1 + num2);
+            view = view + buttonText;
+            _output = '0';
+            newop = buttonText;
+          }
         }
         if(operand == '-'){
-          num1 = (num1 - num2);
-          view = view + buttonText;
-          _output = '0';
-          newop = buttonText;
+          if(buttonText == 'x' || buttonText == '/'){
+            aux = num1;
+            auxop = '-';
+            num1 = num2;
+            view = view + buttonText;
+            _output = '0';
+            newop = buttonText;
+          }else {
+            num1 = (num1 - num2);
+            view = view + buttonText;
+            _output = '0';
+            newop = buttonText;
+          }
         }
         if(operand == '/'){
           if(num2 == 0.0){
@@ -101,7 +122,7 @@ class _buttonPressedState extends State<buttonPressed> {
       //print(num2);
       view = view + '=';
       if(operand == '+'){
-        _output = (num1 + num2).toString();
+        _output =(num1 + num2).toString();
         vis = true;
       }
       if(operand == '-'){
@@ -112,13 +133,29 @@ class _buttonPressedState extends State<buttonPressed> {
         if(num2 == 0.0){
           view = 'Error: Division by 0';
         }else {
-          _output = (num1 / num2).toString();
-          vis = true;
+          if(auxop == '+') {
+            _output = (aux + (num1 / num2)).toString();
+            vis = true;
+          }else if(auxop == '-'){
+            _output = (aux - (num1 / num2)).toString();
+            vis = true;
+          }else{
+            _output = (num1 / num2).toString();
+            vis = true;
+          }
         }
       }
       if(operand == 'x'){
-        _output = (num1 * num2).toString();
-        vis = true;
+        if(auxop == '+') {
+          _output = (aux + (num1 * num2)).toString();
+          vis = true;
+        }else if(auxop == '-'){
+          _output = (aux - (num1 * num2)).toString();
+          vis = true;
+        }else{
+          _output = (num1 * num2).toString();
+          vis = true;
+        }
       }
       if(operand == ''){
         num1 = double.parse(output);
@@ -136,15 +173,11 @@ class _buttonPressedState extends State<buttonPressed> {
       if(buttonPressedTwice == 0){
         num1 = double.parse(output);
         _output = (num1 / 100).toString();
-        aux = num1 / 100;
         view = _output;
-        num1 = aux;
       }else{
         num2 = double.parse(output);
         _output = (num2 / 100).toString();
-        aux = num2 / 100;
         view = view.substring(0, (view.length - (num2.toString().length-2)).toInt()) + _output;
-        num2 = aux;
       }
     }
 
@@ -168,11 +201,18 @@ class _buttonPressedState extends State<buttonPressed> {
       }
     }
     else if(buttonText == '√'){
-      num1 = double.parse(output);
-      _output = (sqrt(num1)).toString();
-      vis = true;
+      if(buttonPressedTwice == 0) {
+        num1 = double.parse(output);
+        _output = (sqrt(num1)).toString();
+        view = view.substring(0, (view.length - (num1.toString().length-2)).toInt()) + _output;
+        //vis = true;
+      }else{
+        num2 = double.parse(output);
+        _output = (sqrt(num2)).toString();
+        view = view = view.substring(0, (view.length - (num2.toString().length-2)).toInt()) + _output;
+      }
 
-      num1 = 0;
+
     }
     else{
       _output = _output + buttonText;
@@ -186,6 +226,8 @@ class _buttonPressedState extends State<buttonPressed> {
 
     print('_output: $_output');
     print('num1: $num1');
+    print('aux: $aux');
+    print('num2: $num2');
 
     setState(() {
       output = double.parse(_output).toStringAsFixed(2);
