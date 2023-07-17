@@ -129,7 +129,7 @@ class _HomePageState extends State<HomePage> {
             itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
                   onTap: () {
-                    clicked();
+                    clicked(index);
                   },
                   child: Container(
                     decoration:
@@ -168,13 +168,21 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void clicked() {
+  void clicked(int index) {
+    print(index);
+  }
+
+  void checkWinner() {
 
   }
 
 
 
   void refresh() {
-
+    setState(() {
+      for(int i = 0; i < 9; i++){
+        xOrOList[i] = '';
+      }
+    });
   }
 }
