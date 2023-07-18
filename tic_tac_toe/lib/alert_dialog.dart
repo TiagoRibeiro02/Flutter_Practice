@@ -31,6 +31,7 @@ Future<void> showAlertDialog({
     builder: (context) => AlertDialog(
       title: Text(title),
       content: Text(content),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
       actions: <Widget>[
         TextButton(
           onPressed: () => onOkPressed(),
