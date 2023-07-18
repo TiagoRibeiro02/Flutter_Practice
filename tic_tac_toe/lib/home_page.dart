@@ -261,6 +261,7 @@ class _HomePageState extends State<HomePage> {
         xOrOList[i] = '';
       }
       turnOfX = true;
+      BoxesFull = 0;
     });
   }
 }
