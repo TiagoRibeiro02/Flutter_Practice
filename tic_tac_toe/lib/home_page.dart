@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tic_tac_toe/alert_dialog.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -140,7 +141,7 @@ class _HomePageState extends State<HomePage> {
                       child: Text(
                         xOrOList[index],
                         style: TextStyle(
-                          color: xOrOList[index] == 'x' ? Colors.white : Colors.red,
+                          color: xOrOList[index] == 'x' ? Colors.green : Colors.red,
                           fontSize: 40,
                         ),
                       ),
@@ -160,7 +161,7 @@ class _HomePageState extends State<HomePage> {
           turnOfX ? 'Turn of X' : 'Turn of O',
           style: TextStyle(
             fontSize: 24,
-            color: Colors.white,
+            color: turnOfX ? Colors.green : Colors.red,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -169,11 +170,87 @@ class _HomePageState extends State<HomePage> {
   }
 
   void clicked(int index) {
-    print(index);
+    setState(() {
+      if(turnOfX && xOrOList[index] == ''){
+        xOrOList[index] = 'x';
+        BoxesFull += 1;
+      }else if(!turnOfX && xOrOList[index] == ''){
+        xOrOList[index] = 'O';
+        BoxesFull += 1;
+      }
+
+      turnOfX = !turnOfX;
+      checkWinner();
+    });
   }
 
   void checkWinner() {
+    //first row
+    if(xOrOList[0] == xOrOList[1] && xOrOList[0] == xOrOList[2] && xOrOList[0] != ''){
+      _showAlertDialog('Winner', xOrOList[0]);
+      return;
+    }
+    //second row
+    if(xOrOList[3] == xOrOList[4] && xOrOList[3] == xOrOList[5] && xOrOList[3] != ''){
+      _showAlertDialog('Winner', xOrOList[3]);
+      return;
+    }
+    //third row
+    if(xOrOList[6] == xOrOList[7] && xOrOList[6] == xOrOList[8] && xOrOList[6] != ''){
+      _showAlertDialog('Winner', xOrOList[6]);
+      return;
+    }
+    //first column
+    if(xOrOList[0] == xOrOList[3] && xOrOList[0] == xOrOList[6] && xOrOList[0] != ''){
+      _showAlertDialog('Winner', xOrOList[0]);
+      return;
+    }
+    //second column
+    if(xOrOList[1] == xOrOList[4] && xOrOList[1] == xOrOList[7] && xOrOList[1] != ''){
+      _showAlertDialog('Winner', xOrOList[1]);
+      return;
+    }
+    //third column
+    if(xOrOList[2] == xOrOList[5] && xOrOList[2] == xOrOList[8] && xOrOList[2] != ''){
+      _showAlertDialog('Winner', xOrOList[2]);
+      return;
+    }
+    //first diagonal
+    if(xOrOList[0] == xOrOList[4] && xOrOList[0] == xOrOList[8] && xOrOList[0] != ''){
+      _showAlertDialog('Winner', xOrOList[0]);
+      return;
+    }
+    //second diagonal
+    if(xOrOList[2] == xOrOList[4] && xOrOList[2] == xOrOList[6] && xOrOList[2] != ''){
+      _showAlertDialog('Winner', xOrOList[2]);
+      return;
+    }
+    //draw
+    if(BoxesFull == 9){
+      _showAlertDialog('Draw', '');
+    }
 
+  }
+
+
+  void _showAlertDialog(String title, String winner){
+    showAlertDialog(
+      context: context,
+        title: title,
+        content: winner == ''
+        ? 'Its a Draw' : 'The winner is ${winner.toUpperCase()}',
+      defaultActionText: 'OK',
+      onOkPressed: () {
+        refresh();
+        Navigator.of(context).pop();
+      }
+    );
+
+    if (winner == 'O'){
+      scoreO += 1;
+    } else if (winner == 'x'){
+      scorex += 1;
+    }
   }
 
 
@@ -183,6 +260,7 @@ class _HomePageState extends State<HomePage> {
       for(int i = 0; i < 9; i++){
         xOrOList[i] = '';
       }
+      turnOfX = true;
     });
   }
 }
