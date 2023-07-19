@@ -15,7 +15,7 @@ Many Material Design widgets need to be inside of a [`MaterialApp`](https://api
 - Easy
 - [x] Calculator
 - [ ] To-Do
-- [ ] Tic Tac Toe Game
+- [x] Tic Tac Toe Game
 - [ ] BooblePop (Rebenta a bolha)
 - Itermediate
 - [ ] Pokedex App
