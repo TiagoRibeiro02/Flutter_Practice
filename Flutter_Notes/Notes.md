@@ -16,6 +16,11 @@ Many Material Design widgets need to be inside of a [`MaterialApp`](https://api
 - [x] Calculator
 - [ ] To-Do
 	- [ ] Menu
+		- [ ] Temp in city
+		- [ ] account page
+		- [ ] done list
+		- [ ] change language
+		- [ ] settings
 	- [ ] search
 	- [ ] login/Register
 	- [ ] Tasks
