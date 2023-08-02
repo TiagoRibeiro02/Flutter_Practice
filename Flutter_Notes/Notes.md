@@ -26,12 +26,14 @@ Many Material Design widgets need to be inside of a [`MaterialApp`](https://api
 	- [ ] Tasks
 - [x] Tic Tac Toe Game
 - [ ] BooblePop (Rebenta a bolha)
+- [ ] Currency converter
 - Itermediate
 - [ ] Pokedex App
 - [ ] Candy Crush Clone
 - [ ] E-Commerce App
 - [ ] Netflix Clone
 - [ ] Play2Learn
+- [ ] What to watch next
 - Hard
 - [ ] Google Clone
 - [ ] eBook App
