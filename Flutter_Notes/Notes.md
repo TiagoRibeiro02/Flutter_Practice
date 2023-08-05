@@ -23,7 +23,7 @@ Many Material Design widgets need to be inside of a [`MaterialApp`](https://api
 		- [ ] settings
 	- [ ] search
 	- [ ] login/Register
-	- [ ] Tasks
+	- [x] Tasks
 - [x] Tic Tac Toe Game
 - [ ] BooblePop (Rebenta a bolha)
 - [ ] Currency converter
